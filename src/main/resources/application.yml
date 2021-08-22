@@ -1,18 +1,23 @@
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: info, health, refresh, prometheus
+
 spring:
   main:
     allow-bean-definition-overriding: true
   metrics:
     web:
       autoTimeServerRequests: true
-
-management:
-  endpoint:
-    health:
-      show-details: always
-    web:
-      exposure:
-        include: '*'
-
-info:
-  app:
-    name: @project.name@
+  data:
+    mongodb:
+      authentication-database: admin
+      username: root
+      password: admin123
+      database: test_db
+      port: 27017
+      host: localhost
