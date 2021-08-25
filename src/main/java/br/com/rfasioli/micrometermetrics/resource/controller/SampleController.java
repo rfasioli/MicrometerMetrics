@@ -1,9 +1,10 @@
-package br.com.rfasioli.micrometermetrics;
+package br.com.rfasioli.micrometermetrics.resource.controller;
 
 import io.micrometer.core.annotation.Timed;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
@@ -13,7 +14,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-@RestController("/sample")
+@RestController
+@RequestMapping("/sample")
 @Timed("sample")
 @Log4j2
 public class SampleController {
@@ -47,7 +49,7 @@ public class SampleController {
   @GetMapping("/property")
   @Timed(value = "sample.property", longTask = true)
   public void property(HttpServletResponse response) throws IOException {
-    response.sendRedirect("/asset");
+    response.sendRedirect("/sample/asset");
   }
 
 
