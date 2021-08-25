@@ -47,7 +47,11 @@ Executar a aplicação:
 [JVM (Micrometer)](https://grafana.com/grafana/dashboards/4701)   
 [Spring Boot Statistics](https://grafana.com/grafana/dashboards/6756)
 
-## Roadmap:
+## Roadmap
 - Monitorar Spring Cloud Stream
 - Monitorar Spring Feign Client
 - Gerar dados de monitoração customizados
+
+# Referências
+- https://medium.com/projuristech/monitorando-uma-aplica%C3%A7%C3%A3o-spring-boot-2-x-cef826ae793c
+- https://www.baeldung.com/micrometer
