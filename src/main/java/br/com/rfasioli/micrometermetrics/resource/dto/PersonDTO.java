@@ -1,9 +1,12 @@
 package br.com.rfasioli.micrometermetrics.resource.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import org.bson.types.ObjectId;
 
 @Data
+@Builder
+@AllArgsConstructor
 public class PersonDTO {
   private String id;
   private String firstName;
