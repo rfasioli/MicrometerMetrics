@@ -49,8 +49,9 @@ Executar a aplicação:
 [Custom Dashboard](./src/main/resources/grafana/CustomDashboard.json)
 
 ## Roadmap
-- Monitorar Spring Cloud Stream
 - Monitorar Spring Feign Client
+### WIP
+- Monitorar Spring Cloud Stream
 - Gerar dados de monitoração customizados
 
 # Referências
@@ -58,3 +59,4 @@ Executar a aplicação:
 - https://www.baeldung.com/micrometer
 - https://www.mokkapps.de/blog/monitoring-spring-boot-application-with-micrometer-prometheus-and-grafana-using-custom-metrics/
 - https://prometheus.io/docs/prometheus/latest/querying/examples/
+- https://cloud.spring.io/spring-cloud-stream/reference/html/spring-cloud-stream.html

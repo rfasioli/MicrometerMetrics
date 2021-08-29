@@ -2,7 +2,7 @@ package br.com.rfasioli.micrometermetrics.resource.controller;
 
 import br.com.rfasioli.micrometermetrics.exception.BadRequestException;
 import br.com.rfasioli.micrometermetrics.exception.PersonNotFoundException;
-import br.com.rfasioli.micrometermetrics.persistence.document.Person;
+import br.com.rfasioli.micrometermetrics.messaging.stream.PersonProducer;
 import br.com.rfasioli.micrometermetrics.persistence.repository.PersonRepository;
 import br.com.rfasioli.micrometermetrics.resource.dto.PersonDTO;
 import br.com.rfasioli.micrometermetrics.resource.mapper.PersonMapper;
@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 public class PersonController {
   private final PersonRepository personRepository;
   private final PersonMapper personMapper;
+  private final PersonProducer personProducer;
 
   @GetMapping
   public List<PersonDTO> findAll() {
@@ -49,5 +50,10 @@ public class PersonController {
       throw new BadRequestException("id", id);
     }
     personRepository.deleteById(new ObjectId(id));
+  }
+
+  @PostMapping("/produce")
+  public void produce(@RequestBody PersonDTO dto) {
+    personProducer.produce(dto);
   }
 }
