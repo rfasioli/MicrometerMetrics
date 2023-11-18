@@ -21,3 +21,13 @@ spring:
       database: test_db
       port: 27017
       host: localhost
+
+  cloud:
+    stream:
+      bindings:
+        personProducer-out-0:
+          binder: 'rabbit'
+          destination: 'person'
+        personConsumer-in-0:
+          binder: 'rabbit'
+          source: 'person'
