@@ -24,12 +24,22 @@ Executar a aplicação:
 ## URLs expostas pela aplicação e dependências
 - Doc da aplicação:
   - http://localhost:8080/v3/api-docs
-  - http://localhost:8080/swagger-ui
+  - http://localhost:8080/swagger-ui.html
 - Prometheus:
   - http://localhost:9090
 - Grafana:
   - http://localhost:3000
     - Usuário e senha padrão: admin/admin
+- RabbitMQ
+  - http://localhost:5672
+  - http://localhost:15672
+    - guest/guest
+- MongoDB
+  - http://localhost:27017
+    - username: root
+    - password: admin123 
+    - database: test_db
+
 - Serviços da aplicação:
   - GET http://localhost:8080/sample
   - POST http://localhost:8080/sample
@@ -60,3 +70,4 @@ Executar a aplicação:
 - https://www.mokkapps.de/blog/monitoring-spring-boot-application-with-micrometer-prometheus-and-grafana-using-custom-metrics/
 - https://prometheus.io/docs/prometheus/latest/querying/examples/
 - https://cloud.spring.io/spring-cloud-stream/reference/html/spring-cloud-stream.html
+- https://www.baeldung.com/spring-cloud-stream
