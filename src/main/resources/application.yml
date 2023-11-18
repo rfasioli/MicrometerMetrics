@@ -1,12 +1,3 @@
-management:
-  endpoint:
-    health:
-      show-details: always
-  endpoints:
-    web:
-      exposure:
-        include: info, health, refresh, prometheus
-
 spring:
   main:
     allow-bean-definition-overriding: true
@@ -21,13 +12,41 @@ spring:
       database: test_db
       port: 27017
       host: localhost
-
   cloud:
+    function:
+      definition: person-consumer;person-producer
     stream:
+      binders:
+        rabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: localhost
+                port: 5672
+                username: guest
+                password: guest
+                virtual-host: /
       bindings:
-        personProducer-out-0:
+        person-producer-out-0:
           binder: 'rabbit'
-          destination: 'person'
-        personConsumer-in-0:
+          destination: 'fact.person.created'
+          group: 'micrometer.metrics'
+        person-consumer-in-0:
           binder: 'rabbit'
-          source: 'person'
+          destination: 'fact.person.created'
+          group: 'micrometer.metrics'
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  level:
+    root: INFO
+    br.com.rfasioli: DEBUG

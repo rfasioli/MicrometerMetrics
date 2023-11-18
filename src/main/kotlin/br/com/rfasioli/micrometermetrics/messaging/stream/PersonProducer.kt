@@ -6,7 +6,7 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Sinks
 import java.util.function.Supplier
 
-@Component
+@Component("person-producer")
 class PersonProducer : Supplier<Flux<PersonDTO>> {
     private val sink = Sinks.many().unicast().onBackpressureBuffer<PersonDTO>()
 

@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.backend.common.compilationException
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -17,12 +18,19 @@ repositories {
 
 val springCloudVersion = "2020.0.3"
 
+configurations {
+    implementation {
+        exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
+    }
+}
+
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
 
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-undertow")
+
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 
     implementation("org.springframework.cloud:spring-cloud-stream")
@@ -31,12 +39,6 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-ui:1.5.2")
 
     runtimeOnly("io.micrometer:micrometer-registry-prometheus")
-
-    compileOnly("org.projectlombok:lombok")
-    annotationProcessor("org.projectlombok:lombok")
-
-    implementation("org.mapstruct:mapstruct:1.4.2.Final")
-    annotationProcessor("org.mapstruct:mapstruct-processor:1.4.2.Final")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.cloud:spring-cloud-stream-test-support")

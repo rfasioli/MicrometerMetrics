@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import javax.servlet.http.HttpServletResponse
 import kotlin.random.Random
-import kotlinx.coroutines.delay
 
 @RestController
 @RequestMapping("/sample")
@@ -21,7 +20,7 @@ class SampleController {
     suspend fun listSample(): List<String> {
         val seconds2Sleep = Random.nextInt(500)
         log.debug("waiting for {}", seconds2Sleep)
-        delay(seconds2Sleep.toLong())
+        Thread.sleep(seconds2Sleep.toLong())
         return listOf("Jim", "Tom", "Tim")
     }
 
@@ -30,7 +29,7 @@ class SampleController {
     suspend fun putSample(): List<String> {
         val seconds2Sleep = Random.nextInt(1000)
         log.debug("waiting for {}", seconds2Sleep)
-        delay(seconds2Sleep.toLong())
+        Thread.sleep(seconds2Sleep.toLong())
         return listOf("Jim", "Tom", "Tim")
     }
 
