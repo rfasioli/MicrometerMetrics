@@ -2,10 +2,17 @@ import org.jetbrains.kotlin.backend.common.compilationException
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    val kotlinVersion = "1.8.22"
+    val palantirDockerVersion = "0.35.0"
+
+    kotlin("jvm") version "$kotlinVersion"
+    kotlin("plugin.spring") version "$kotlinVersion"
+    kotlin("plugin.jpa") version "$kotlinVersion"
+
     id("org.springframework.boot") version "2.5.4"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    kotlin("jvm") version "1.8.22"
-    kotlin("plugin.spring") version "1.8.22"
+
+    id("com.palantir.docker") version "$palantirDockerVersion"
 }
 
 group = "br.com.rfasioli"
@@ -59,4 +66,9 @@ dependencyManagement {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+docker {
+    name = "${project.name}".toLowerCase()
+    files("${project.buildDir}/libs/${project.name}-${project.version}.jar")
 }
