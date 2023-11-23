@@ -1,5 +1,6 @@
 import org.jetbrains.kotlin.backend.common.compilationException
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.storage.CacheResetOnProcessCanceled.enabled
 
 plugins {
     val kotlinVersion = "1.8.22"
@@ -16,8 +17,15 @@ plugins {
 }
 
 group = "br.com.rfasioli"
-version = "0.0.1-SNAPSHOT"
+version = "0.0.2-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_17
+
+tasks.jar {
+    enabled = false
+}
+tasks.bootJar {
+    enabled = true
+}
 
 repositories {
     mavenCentral()
@@ -69,6 +77,7 @@ tasks.withType<Test> {
 }
 
 docker {
-    name = "${project.name}".toLowerCase()
-    files("${project.buildDir}/libs/${project.name}-${project.version}.jar")
+    name = "${project.name.toLowerCase()}"
+    files("$projectDir/build/libs/${project.name.toLowerCase()}-${project.version}.jar")
+    setDockerfile(file("$projectDir/Dockerfile"))
 }
