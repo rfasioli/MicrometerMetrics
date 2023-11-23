@@ -71,3 +71,5 @@ Executar a aplicação:
 - https://prometheus.io/docs/prometheus/latest/querying/examples/
 - https://cloud.spring.io/spring-cloud-stream/reference/html/spring-cloud-stream.html
 - https://www.baeldung.com/spring-cloud-stream
+- https://github.com/palantir/gradle-docker
+- https://github.com/school-digital-agenda/sda-bootstrap/blob/main/README.md
