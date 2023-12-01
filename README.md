@@ -7,9 +7,10 @@ Projeto testes de geração de métricas.
 - Spring Boot 2.5.4
 - Open API
 - Micrometer
-- Open Telemetry
-- Prometheus
-- Jaeger
+- Open Telemetry 1.32.0
+- Prometheus 2.48.0
+- Jaeger 1.51.0
+- Zikpin
 - Docker
 - MongoDB
 
@@ -20,6 +21,17 @@ docker-compose up -d
 ```
 Executar a aplicação:
 ``` bash
+## Environments
+JAVA_TOOL_OPTIONS="-javaagent:./config/otel/agent/opentelemetry-javaagent.jar" 
+OTEL_SERVICE_NAME=micrometermetrics-application
+OTEL_RESOURCE_ATTRIBUTES=micrometermetrics-application
+OTEL_TRACES_EXPORTER=otlp
+OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317
+OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://localhost:4317
+OTEL_EXPORTER_OTLP_PROTOCOL=grpc
+OTEL_EXPORTER_OTLP_TRACES_PROTOCOL=grpc
+
+## Executando
 ./gradlew bootRun
 ```
 
