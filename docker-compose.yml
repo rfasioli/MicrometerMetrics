@@ -2,14 +2,14 @@
 version: '3.1'
 
 services:
-  application:
-    image: micrometermetrics
-    depends_on:
-      - mongo
-      - rabbit
-      - prometheus
-    ports:
-      - "8080:8080"
+#  application:
+#    image: micrometermetrics
+#    depends_on:
+#      - mongo
+#      - rabbit
+#      - prometheus
+#    ports:
+#      - "8080:8080"
 
   mongo:
     image: mongo
@@ -33,30 +33,47 @@ services:
       ME_CONFIG_MONGODB_URL: mongodb://root:admin123@mongo:27017/
 
   prometheus:
-    image: bitnami/prometheus:latest
-    network_mode: host
+    container_name: prometheus
+    image: prom/prometheus:latest
     volumes:
       - ./prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml
+    ports:
+      - "9090:9090"
 
   grafana:
+    container_name: grafana
     image: grafana/grafana
-    network_mode: host
+    ports:
+      - "3000:3000"
 
   collector:
-    image: otel/opentelemetry-collector:0.72.0
+    image: otel/opentelemetry-collector-contrib:latest
     command: [ "--config=/etc/otel-collector-config.yml" ]
     volumes:
-      - ./otel-config.yml:/etc/otel-collector-config.yml
+      - ./otel-collector-config.yml:/etc/otel-collector-config.yml
     ports:
-      - "4317:4317"
+      - "1888:1888"   # pprof extension
+      - "8888:8888"   # Prometheus metrics exposed by the collector
+      - "8889:8889"   # Prometheus exporter metrics
+      - "13133:13133" # health_check extension
+      - "4317:4317"   # OTLP gRPC receiver
+      - "4318:4318"
+      - "55679:55679" # zpages extension
     depends_on:
       - jaeger-service
+      - zipkin-all-in-one
+      - prometheus
 
   jaeger-service:
     image: jaegertracing/all-in-one:latest
     ports:
       - "16686:16686"
-      - "14250"
+      - "14250:14250"
+
+  zipkin-all-in-one:
+    image: openzipkin/zipkin:latest
+    ports:
+      - "9411:9411"
 
   rabbit:
     image: rabbitmq:3.9-management

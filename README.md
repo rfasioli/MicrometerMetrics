@@ -2,12 +2,14 @@
 Projeto testes de geração de métricas.
 
 ## Tecnologias
-- Java 11
-- Lombok
+- Java 17
+- Kotlin 1.8.22
 - Spring Boot 2.5.4
 - Open API
 - Micrometer
+- Open Telemetry
 - Prometheus
+- Jaeger
 - Docker
 - MongoDB
 
@@ -65,6 +67,7 @@ Executar a aplicação:
 - Gerar dados de monitoração customizados
 
 # Referências
+- https://medium.com/@zzzzzYang/implement-opentelemetry-to-export-data-to-jaeger-prometheus-and-grafana-1098352370c0
 - https://medium.com/projuristech/monitorando-uma-aplica%C3%A7%C3%A3o-spring-boot-2-x-cef826ae793c
 - https://www.baeldung.com/micrometer
 - https://www.mokkapps.de/blog/monitoring-spring-boot-application-with-micrometer-prometheus-and-grafana-using-custom-metrics/

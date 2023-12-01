@@ -1,0 +1,42 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+      http:
+
+processors:
+  batch:
+
+exporters:
+  otlp:
+    endpoint: otelcol:4317
+  zipkin:
+    endpoint: "http://zipkin-all-in-one:9411/api/v2/spans"
+  logging:
+    loglevel: debug
+  otlp/jaeger:
+    endpoint: jaeger-service:14250
+    tls:
+      insecure: true
+  prometheus:
+    endpoint: "0.0.0.0:8889"
+    const_labels:
+      label1: value1
+
+extensions:
+  health_check:
+  pprof:
+  zpages:
+
+service:
+  extensions: [health_check,pprof,zpages]
+  pipelines:
+    traces:
+      receivers:  [ otlp ]
+      processors: [ batch ]
+      exporters:  [ logging, otlp/jaeger ]
+    metrics:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [logging, prometheus]
+
