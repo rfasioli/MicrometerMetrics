@@ -7,9 +7,10 @@ Projeto testes de geração de métricas.
 - Spring Boot 2.5.4
 - Open API
 - Micrometer
-- Open Telemetry 1.32.0
-- Prometheus 2.48.0
-- Jaeger 1.51.0
+- Open Telemetry 1.32
+- Open Telemetry Collector 0.90.1
+- Prometheus 2.48
+- Jaeger 1.51
 - Zikpin
 - Docker
 - MongoDB
@@ -22,14 +23,18 @@ docker-compose up -d
 Executar a aplicação:
 ``` bash
 ## Environments
-JAVA_TOOL_OPTIONS="-javaagent:./config/otel/agent/opentelemetry-javaagent.jar" 
+JAVA_TOOL_OPTIONS=-javaagent:./config/otelcollector/agent/opentelemetry-javaagent.jar
 OTEL_SERVICE_NAME=micrometermetrics-application
-OTEL_RESOURCE_ATTRIBUTES=micrometermetrics-application
-OTEL_TRACES_EXPORTER=otlp
+OTEL_LOGS_EXPORTER=otlp
+
+OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE=cumulative
 OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317
-OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://localhost:4317
-OTEL_EXPORTER_OTLP_PROTOCOL=grpc
-OTEL_EXPORTER_OTLP_TRACES_PROTOCOL=grpc
+OTEL_LOGS_EXPORTER=otlp
+OTEL_RESOURCE_ATTRIBUTES=service.namespace=micrometermetrics-application
+
+OTEL_LOGS_EXPORTER=otlp|zipkin|logging
+OTEL_METRICS_EXPORTER=logging
+OTEL_LOGS_EXPORTER=logging
 
 ## Executando
 ./gradlew bootRun
@@ -44,6 +49,8 @@ OTEL_EXPORTER_OTLP_TRACES_PROTOCOL=grpc
 - Grafana:
   - http://localhost:3000
     - Usuário e senha padrão: admin/admin
+- Jaeger:
+  - http://localhost:16686
 - RabbitMQ
   - http://localhost:5672
   - http://localhost:15672
@@ -53,7 +60,9 @@ OTEL_EXPORTER_OTLP_TRACES_PROTOCOL=grpc
     - username: root
     - password: admin123 
     - database: test_db
-
+- MongoExpress
+  - http://localhost:8081
+  
 - Serviços da aplicação:
   - GET http://localhost:8080/sample
   - POST http://localhost:8080/sample
@@ -79,6 +88,13 @@ OTEL_EXPORTER_OTLP_TRACES_PROTOCOL=grpc
 - Gerar dados de monitoração customizados
 
 # Referências
+- https://www.jaegertracing.io/docs/1.51/
+- https://prometheus.io/docs/prometheus/latest/
+- https://opentelemetry.io/docs/collector/
+- https://opentelemetry.io/docs/instrumentation/java/
+- https://opentelemetry.io/docs/instrumentation/java/automatic/spring-boot/
+- 
+- https://opentelemetry.io/docs/demo/
 - https://medium.com/@zzzzzYang/implement-opentelemetry-to-export-data-to-jaeger-prometheus-and-grafana-1098352370c0
 - https://medium.com/projuristech/monitorando-uma-aplica%C3%A7%C3%A3o-spring-boot-2-x-cef826ae793c
 - https://www.baeldung.com/micrometer

@@ -51,9 +51,11 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-stream")
     implementation("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
 
-    implementation("org.springdoc:springdoc-openapi-ui:1.5.2")
+    implementation("org.springdoc:springdoc-openapi-ui:1.5.12")
 
-    runtimeOnly("io.micrometer:micrometer-registry-prometheus")
+//    runtimeOnly("io.micrometer:micrometer-registry-prometheus")
+    implementation("io.opentelemetry.instrumentation:opentelemetry-instrumentation-annotations:1.32.0")
+//    implementation('io.opentelemetry.instrumentation:opentelemetry-spring-boot-starter:1.32.0-alpha')
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.cloud:spring-cloud-stream-test-support")
